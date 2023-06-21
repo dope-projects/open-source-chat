@@ -14,7 +14,7 @@ from langchain.chat_models import ChatOpenAI
 
 from constants import OPENAI_API_KEY, INDEX_NAME
 from views.htmlTemplates import css
-from utils.inputs.pdf import parse_pdfs
+from utils.inputs.input_helper import parse_by_file_type
 
 from icecream import ic
 
@@ -50,13 +50,6 @@ def get_vectorstore_openAI(data):
     vectorstore = Pinecone.from_documents(data, embedding=embeddings, index_name=INDEX_NAME)
     return vectorstore
 
-
-# embedding using instructor-xl with your local machine for free you can find more details at:
-# https://huggingface.co/hkunlp/instructor-xl This code snippet demo how to use other model for text embedding. Will
-# not use this for my project. But will keep this here for reference. def get_vectorstore(text_chunks): embeddings =
-# HuggingFaceInstructEmbeddings(model_name="hkunlp/instructor-xl") vectorstore = FAISS.from_texts(texts=text_chunks,
-# embedding=embeddings) return vectorstore
-
 def get_conversation_chain(vectorstore):
     llm = ChatOpenAI()
     memory = ConversationBufferMemory(memory_key='chat_history', return_messages=True)
@@ -75,7 +68,7 @@ def main():
     # Set up pinecone database
 
     # set up basic page
-    st.set_page_config(page_title="Chat With multiple PDFs", page_icon=":books:")
+    st.set_page_config(page_title="OSChat", page_icon=":globe_with_meridians:")
     st.write(css, unsafe_allow_html=True)
 
     # initial session_state in order to avoid refresh
@@ -84,8 +77,8 @@ def main():
     if "chat_history" not in st.session_state:
         st.session_state.chat_history = None
 
-    st.header("Chat based on PDF you provided :books:")
-    user_question = st.text_input("Ask a question about your documents:")
+    st.header("Chat With your favorite Open Source Websites:globe_with_meridians:")
+    user_question = st.text_input("Ask a question about your open source library:")
 
     if user_question:
         handle_userinput(user_question)
@@ -93,29 +86,29 @@ def main():
     # Define the templates
 
     with st.sidebar:
-        st.subheader("Your PDF documents")
-        pdf_docs = st.file_uploader("Upload your pdfs here and click on 'Proces'", accept_multiple_files=True)
+        st.subheader("Your documents")
+        docs = st.file_uploader("Upload your pdf or markdown files here and click on 'Proces'", accept_multiple_files=True)
         # if the button is pressed
         if st.button("Process"):
             with st.spinner("Processing"):
-                # get pdf text
-                data = parse_pdfs(pdf_docs)
-                ic('pdfs have been reading into data')
+                # get file text
+                data = parse_by_file_type(docs)
+                ic(f'pdfs have been reading into data {data}')
 
                 # Use loader and data splitter to make a documentlist
                 doc = get_text_chunk(data)
                 ic(f'text_chunks are generated and the total chucks are {len(doc)}')
 
                 # create vector store
-                vectorstore = get_vectorstore_openAI(doc)
+                #vectorstore = get_vectorstore_openAI(doc)
 
-    embeddings = OpenAIEmbeddings()
-    INDEX_NAME = 'pdfchat'
-    print(f'{INDEX_NAME}')
-    vectorstore = Pinecone.from_existing_index(index_name=INDEX_NAME, embedding=embeddings)
+    #embeddings = OpenAIEmbeddings()
+    #INDEX_NAME = 'pdfchat'
+    #print(f'{INDEX_NAME}')
+    #vectorstore = Pinecone.from_existing_index(index_name=INDEX_NAME, embedding=embeddings)
     # create conversation chain
-    st.session_state.conversation = get_conversation_chain(vectorstore)
-    ic('conversation chain created')
+    #st.session_state.conversation = get_conversation_chain(vectorstore)
+    #ic('conversation chain created')
 
 
 # to run this application, you need to run "streamlit run app.py"
