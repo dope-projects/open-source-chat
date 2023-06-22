@@ -20,7 +20,7 @@ def create_index(index_name: str = INDEX_NAME, dimension: int = 1536, metric: st
     if index_name not in index_list():
         # index not existed. Create a new index
         pinecone.create_index(name=index_name, dimension=dimension, metric=metric)
-        ic(f"create a new index {index_name}")
+        ic(f"created a new index {index_name}")
     else:
         logging.warning(f"{index_name} index existed. skip creating.")
 

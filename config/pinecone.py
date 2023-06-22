@@ -11,9 +11,11 @@ def setup() -> None:
         api_key=PINECONE_API_KEY,
         environment=PINECONE_API_ENV,
     )
-    indexes = index_list()
-    if INDEX_NAME not in indexes:
-        ic(f"creating index:{INDEX_NAME}")
-        create_index(INDEX_NAME)
+    create_index(INDEX_NAME)
 
-    ic(f"pinecone-setup:{index_list()}")
+    indexes = index_list()
+
+    if INDEX_NAME not in indexes:
+        raise BlockingIOError(f"index creation failed:{INDEX_NAME}")
+
+    ic(f"pinecone-setup complete:{INDEX_NAME}")
