@@ -1,16 +1,43 @@
-user_template = '''
-<div class="chat-message user">
-    <div class="avatar">
-        <svg 
-            xmlns="http://www.w3.org/2000/svg" 
-            width="256" 
-            height="256" 
-            viewBox="0 0 256 256"
-            style="max-height: 50px; max-width: 50px; border-radius: 50%; object-fit: cover;">
-            <path fill="white" d="M168 96H88a40 40 0 0 0-40 40v8a40 40 0 0 0 40 40h80a40 40 0 0 0 40-40v-8a40 40 0 0 0-40-40Zm24 48a24 24 0 0 1-24 24H88a24 24 0 0 1-24-24v-8a24 24 0 0 1 24-24h80a24 24 0 0 1 24 24Zm16-112a32.06 32.06 0 0 0-31 24H79a32 32 0 0 0-63 8v80a72.08 72.08 0 0 0 72 72h80a72.08 72.08 0 0 0 72-72V64a32 32 0 0 0-32-32Zm16 112a56.06 56.06 0 0 1-56 56H88a56.06 56.06 0 0 1-56-56V64a16 16 0 0 1 32 0a8 8 0 0 0 8 8h112a8 8 0 0 0 8-8a16 16 0 0 1 32 0Zm-120-4a12 12 0 1 1-12-12a12 12 0 0 1 12 12Zm72 0a12 12 0 1 1-12-12a12 12 0 0 1 12 12Z"/>
-            </svg>
-Download SVG
-    </div>    
-    <div class="message">{{MSG}}</div>
-</div>
-'''
+import streamlit as st
+from icecream import ic
+
+import public
+from utils.ai.openai import get_text_chunk, get_vector_store
+from handlers.userinput import handle_userinput
+from utils.inputs.pdf import parse_pdfs
+
+
+def home():
+    st.set_page_config(page_title="Chat With multiple PDFs", page_icon=":books:")
+    st.write(public.css_index, unsafe_allow_html=True)
+
+    # initial session_state in order to avoid refresh
+    if "conversation" not in st.session_state:
+        st.session_state.conversation = None
+    if "chat_history" not in st.session_state:
+        st.session_state.chat_history = None
+
+    st.header("Chat based on PDF you provided :books:")
+    user_question = st.text_input("Ask a question about your documents:")
+
+    if user_question:
+        handle_userinput(user_question)
+
+    # Define the templates
+
+    with st.sidebar:
+        st.subheader("Your PDF documents")
+        pdf_docs = st.file_uploader("Upload your pdfs here and click on 'Proces'", accept_multiple_files=True)
+        # if the button is pressed
+        if st.button("Process"):
+            with st.spinner("Processing"):
+                # get pdf text
+                data = parse_pdfs(pdf_docs)
+                ic('pdfs have been reading into data')
+
+                # Use loader and data splitter to make a documentlist
+                doc = get_text_chunk(data)
+                ic(f'text_chunks are generated and the total chucks are {len(doc)}')
+
+                # create vector store
+                vectorstore = get_vector_store(doc)

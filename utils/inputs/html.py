@@ -1,11 +1,13 @@
 import os.path
 import typing
+from functools import cache
 from io import StringIO
 from pathlib import Path
 
 from typing.io import IO
 
 
+@cache
 def extract(html_src: str | IO | Path | StringIO) -> typing.Text:
     isFile = False
 
