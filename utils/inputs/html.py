@@ -1,11 +1,12 @@
 import os.path
 import typing
+from io import StringIO
 from pathlib import Path
 
 from typing.io import IO
 
 
-def extract(html_src: str | IO | Path) -> typing.Text:
+def extract(html_src: str | IO | Path | StringIO) -> typing.Text:
     isFile = False
 
     if isinstance(html_src, str):
