@@ -1,5 +1,5 @@
 from icecream import ic
-from langchain.vectorstores import pinecone
+import pinecone
 
 from constants import PINECONE_API_KEY, PINECONE_API_ENV
 from database.pinecone_db import index_list
