@@ -37,7 +37,7 @@ To run the OS-Chat project using `Docker`, follow these steps:
 
 ```shell
 docker build -t os-chat .
-docker run -p 8599:8599 os_chat
+docker run -p 8599:8599 os-chat
 ```
 
 > For developers,
