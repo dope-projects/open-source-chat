@@ -1,4 +1,4 @@
-from constants import OPENAI_API_KEY
+from config.constants import OPENAI_API_KEY
 from utils.ai import openai
 
 

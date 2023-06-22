@@ -7,7 +7,7 @@ from langchain.embeddings import OpenAIEmbeddings
 from langchain.schema import Document
 from langchain.vectorstores import Pinecone
 
-from constants import PINECONE_API_KEY, PINECONE_API_ENV, INDEX_NAME
+from config.constants import INDEX_NAME
 
 
 # @cache

@@ -1,7 +1,7 @@
 from icecream import ic
 import pinecone
 
-from constants import PINECONE_API_KEY, PINECONE_API_ENV, INDEX_NAME
+from config.constants import PINECONE_API_KEY, PINECONE_API_ENV, INDEX_NAME
 from database.pinecone_db import index_list, create_index
 
 
@@ -11,5 +11,9 @@ def setup() -> None:
         api_key=PINECONE_API_KEY,
         environment=PINECONE_API_ENV,
     )
-    create_index(INDEX_NAME)
+    indexes = index_list()
+    if INDEX_NAME not in indexes:
+        ic(f"creating index:{INDEX_NAME}")
+        create_index(INDEX_NAME)
+
     ic(f"pinecone-setup:{index_list()}")

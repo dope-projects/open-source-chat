@@ -1,14 +1,11 @@
-import threading
-
 import streamlit as st
-import openai
 from langchain.embeddings import OpenAIEmbeddings
 # from langchain.vectorstores import FAISS
 from langchain.vectorstores import Pinecone
 
 from config import open_ai, pinecone
 
-from constants import OPENAI_API_KEY, INDEX_NAME
+from config.constants import INDEX_NAME
 from utils.ai.openai import get_conversation_chain
 
 from icecream import ic

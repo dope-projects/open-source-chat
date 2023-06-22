@@ -1,4 +1,3 @@
-import pinecone
 from icecream import ic
 from langchain.chains import ConversationalRetrievalChain
 from langchain.chains.conversational_retrieval.base import BaseConversationalRetrievalChain
@@ -9,7 +8,7 @@ from langchain.schema import Document
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.vectorstores import Pinecone
 
-from constants import INDEX_NAME
+from config.constants import INDEX_NAME
 from database import pinecone_db
 
 
