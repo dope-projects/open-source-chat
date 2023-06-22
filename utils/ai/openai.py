@@ -26,7 +26,7 @@ def get_text_chunk(text):
     return docs
 
 
-def get_vector_store(data) -> Pinecone:
+def upsert(data) -> Pinecone:
     # default model is:text-embedding-ada-002
     embeddings = OpenAIEmbeddings()
 

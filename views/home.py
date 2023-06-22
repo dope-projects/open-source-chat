@@ -2,7 +2,7 @@ import streamlit as st
 from icecream import ic
 
 import public
-from utils.ai.openai import get_text_chunk, get_vector_store
+from utils.ai.openai import get_text_chunk, upsert
 from handlers.userinput import handle_userinput
 from utils.inputs.pdf import parse_pdfs
 
@@ -39,5 +39,5 @@ def home():
                 doc = get_text_chunk(data)
                 ic(f'text_chunks are generated and the total chucks are {len(doc)}')
 
-                # create vector store
-                vectorstore = get_vector_store(doc)
+                # Upsert data to the VectorStore
+                upsert(doc)
