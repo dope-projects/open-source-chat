@@ -42,7 +42,7 @@ docker run -p 8599:8599 os-chat
 
 > For developers,
 > I recommend <br>
-> ```docker run -it -p 8599:8599 os_chat``` <br>
+> ```docker run -it -p 8599:8599 os-chat``` <br>
 > playaround and test your code!
 
 
