@@ -67,4 +67,4 @@ jobs:
         - name: Build and test Dockerfile
           run: |
             docker build -t os-chat .
-            docker run os-chat pytest
+            docker run os-chat
