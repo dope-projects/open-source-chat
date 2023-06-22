@@ -4,7 +4,7 @@ from icecream import ic
 import public
 from utils.ai.openai import get_text_chunk, upsert
 from handlers.userinput import handle_userinput
-from utils.inputs.pdf import parse_pdfs
+from utils.inputs.pdf import extract
 
 
 def home():
@@ -32,7 +32,7 @@ def home():
         if st.button("Process"):
             with st.spinner("Processing"):
                 # get pdf text
-                data = parse_pdfs(pdf_docs)
+                data = extract(pdf_docs)
                 ic('pdfs have been reading into data')
 
                 # Use loader and data splitter to make a documentlist
