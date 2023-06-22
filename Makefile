@@ -22,10 +22,6 @@ test:
 
 clean:
 	@echo "cleaning"
-	@rm -rf __pycache__
-	@rm -rf pytest_cache
-	@rm -rf .pytest_cache
-
-
+	@find . -type d -name '.pytest_cache' -exec rm -rf {} +
 
 .PHONY: run install clean setup test
