@@ -23,10 +23,6 @@ jobs:
       matrix:
         python-version: [ "3.10", "3.11" ]
 
-    
-    env:
-      CGID: ${{ github.workflow }}-${{matrix.os}}-${{matrix.arch}}
-
 
     steps:
       - uses: actions/checkout@v3
