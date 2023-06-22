@@ -1,8 +1,6 @@
 import streamlit as st
 
-from public import tpl_user
-
-from views.bot import bot_template
+from public import tpl_user, tpl_bot
 
 
 def handle_userinput(user_question):
@@ -13,4 +11,4 @@ def handle_userinput(user_question):
         if i % 2 == 0:
             st.write(tpl_user.replace("{{MSG}}", message.content), unsafe_allow_html=True)
         else:
-            st.write(bot_template.replace("{{MSG}}", message.content), unsafe_allow_html=True)
+            st.write(tpl_bot.replace("{{MSG}}", message.content), unsafe_allow_html=True)
