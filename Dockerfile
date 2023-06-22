@@ -3,6 +3,9 @@ FROM python:3.10 AS builder
 
 WORKDIR /app
 
+python -m venv venv
+. venv/bin/activate
+
 COPY requirements.txt ./requirements.txt
 RUN pip install -r requirements.txt
 
@@ -13,7 +16,9 @@ EXPOSE 8599
 
 WORKDIR /app
 
-COPY --from=builder /usr/local/lib/python3.10/site-packages /usr/local/lib/python3.10/site-packages
+COPY --from=builder /app/venv /app/venv
+. venv/bin/activate/
+
 COPY . .
 
 RUN sed -i 's/\(runOnSave =\).*/\1 false/' .streamlit/config.toml
