@@ -8,7 +8,7 @@ from utils.inputs.pdf import parse_pdfs
 
 
 def home():
-    st.set_page_config(page_title="Chat With multiple PDFs", page_icon=":books:")
+    st.set_page_config(page_title="Prompt Wiki", page_icon=":books:")
     st.write(public.css_index, unsafe_allow_html=True)
 
     # initial session_state in order to avoid refresh
