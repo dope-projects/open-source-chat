@@ -23,4 +23,4 @@ COPY . .
 
 RUN sed -i 's/\(runOnSave =\).*/\1 false/' .streamlit/config.toml
 
-CMD ["python","-m","streamlit", "run", "app.py"]
+CMD ["streamlit", "run", "app.py"]
