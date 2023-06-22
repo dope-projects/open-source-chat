@@ -5,7 +5,7 @@ from PyPDF2 import PdfReader
 from typing import IO
 
 
-def parse_pdfs(pdf_docs: str | IO | Path) -> str:
+def parse_pdfs(*pdf_docs: str | IO | Path) -> str:
     text = ""
     for pdf in pdf_docs:
         pdf_reader = PdfReader(pdf)
