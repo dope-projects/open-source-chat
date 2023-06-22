@@ -1,6 +1,6 @@
-# Plan to work with this later when I have time
+# TODO: implement
 class Chromadb:
-    
+
     def __init__(self):
         # Constructor code, if needed
         pass

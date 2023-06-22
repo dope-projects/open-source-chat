@@ -3,8 +3,11 @@ from typing import List
 
 import pinecone
 from icecream import ic
+from langchain.embeddings import OpenAIEmbeddings
+from langchain.schema import Document
+from langchain.vectorstores import Pinecone
 
-from constants import PINECONE_API_KEY, PINECONE_API_ENV
+from constants import PINECONE_API_KEY, PINECONE_API_ENV, INDEX_NAME
 
 
 # from functools import cache
@@ -25,7 +28,7 @@ def _setup() -> None:
     ic(f"pinecone-setup:{index_list()}")
 
 
-def create_index(index_name: str, dimension: int = 1536, metric: str = "euclidean"):
+def create_index(index_name: str = INDEX_NAME, dimension: int = 1536, metric: str = "euclidean"):
     # check before creating
     if index_name not in index_list():
         # index not existed. Create a new index
@@ -33,6 +36,10 @@ def create_index(index_name: str, dimension: int = 1536, metric: str = "euclidea
         ic(f"create a new index {index_name}")
     else:
         logging.warning(f"{index_name} index existed. skip creating.")
+
+
+def insert(data: List[Document], embeddings: OpenAIEmbeddings, index=INDEX_NAME) -> Pinecone:
+    return Pinecone.from_documents(data, embedding=embeddings, index_name=index)
 
 
 _setup()
