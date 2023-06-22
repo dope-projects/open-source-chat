@@ -8,7 +8,8 @@ natural language understanding and generation.
 
 The chatbot's functionality will be specifically tailored to handle conversations related to
 documents`(PDF, markdowns, html)`. Users will
-be able to ask questions, seek information, or request assistance regarding docs-related topics. The chatbot will utilize
+be able to ask questions, seek information, or request assistance regarding docs-related topics. The chatbot will
+utilize
 the capabilities of GPT to comprehend user inputs and generate informative and contextually appropriate responses.
 
 ## Prerequisites
@@ -36,12 +37,12 @@ To run the OS-Chat project using `Docker`, follow these steps:
 
 ```shell
 docker build -t os-chat .
-docker run -p 8599:8599 pdf_chat
+docker run -p 8599:8599 os_chat
 ```
 
 > For developers,
 > I recommend <br>
-> ```docker run -it -p 8599:8599 pdf_chat``` <br>
+> ```docker run -it -p 8599:8599 os_chat``` <br>
 > playaround and test your code!
 
 
