@@ -8,7 +8,7 @@ natural language understanding and generation.
 
 The chatbot's functionality will be specifically tailored to handle conversations related to
 documents`(PDF, markdowns, html)`. Users will
-be able to ask questions, seek information, or request assistance regarding PDF-related topics. The chatbot will utilize
+be able to ask questions, seek information, or request assistance regarding docs-related topics. The chatbot will utilize
 the capabilities of GPT to comprehend user inputs and generate informative and contextually appropriate responses.
 
 ## Prerequisites
@@ -45,7 +45,7 @@ docker run -p 8599:8599 pdf_chat
 > playaround and test your code!
 
 
-> That's it! You can now use the OS-Chat chatbot to have conversations related to PDF documents.
+> That's it! You can now use the OS-Chat chatbot to have conversations related to your documentations.
 
 > Please note that you will need to replace `<repository_url>` with the actual URL of this/forked repo
 
