@@ -13,6 +13,9 @@ install:
 run:
 	@python -m streamlit run app.py
 
+install-tests:
+	@ python -m pip install -r requirements-test.txt
+ 
 test:
 	@pytest -p no:cacheprovider
 	@echo "testing complete"
