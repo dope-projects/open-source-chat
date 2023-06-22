@@ -4,7 +4,7 @@ from langchain.embeddings import OpenAIEmbeddings
 # from langchain.vectorstores import FAISS
 from langchain.vectorstores import Pinecone
 
-from constants import OPENAI_API_KEY
+from constants import OPENAI_API_KEY, INDEX_NAME
 from utils.ai.openai import get_conversation_chain
 
 from icecream import ic
@@ -21,8 +21,6 @@ def main():
     home()
 
     embeddings = OpenAIEmbeddings()
-    INDEX_NAME = 'pdfchat'
-    print(f'{INDEX_NAME}')
     vectorstore = Pinecone.from_existing_index(index_name=INDEX_NAME, embedding=embeddings)
     # create conversation chain
     st.session_state.conversation = get_conversation_chain(vectorstore)
