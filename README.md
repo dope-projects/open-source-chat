@@ -35,7 +35,7 @@ To run the OS-Chat project using `Python` and `make`, follow these steps:
 To run the OS-Chat project using `Docker`, follow these steps:
 
 ```shell
-docker build -t pdf_chat .
+docker build -t os-chat .
 docker run -p 8599:8599 pdf_chat
 ```
 
