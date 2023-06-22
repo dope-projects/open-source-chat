@@ -17,8 +17,6 @@ from views.home import home
 
 
 def main():
-    threading.Thread(target=home, args=(), daemon=True).start()
-
     open_ai.setup()
     pinecone.setup()
 
@@ -27,6 +25,8 @@ def main():
     # create conversation chain
     st.session_state.conversation = get_conversation_chain(vectorstore)
     ic('conversation chain created')
+
+    home()
 
 
 # to run this application, you need to run "streamlit run app.py"
