@@ -56,3 +56,15 @@ jobs:
       - name: Run tests
         run: |
           make test
+
+    docker:
+      runs-on: ubuntu-latest
+
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v3
+
+        - name: Build and test Dockerfile
+          run: |
+            docker build -t os-chat .
+            docker run os-chat pytest
