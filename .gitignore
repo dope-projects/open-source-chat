@@ -46,7 +46,6 @@ build/
 # Ignore system-specific files
 .DS_Store
 Thumbs.db
-```
 
 # Jupyter Notebook
 .ipynb_checkpoints/
