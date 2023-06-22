@@ -10,7 +10,7 @@ COPY requirements.txt ./requirements.txt
 RUN pip install -r requirements.txt
 
 # Stage 2: Copy application code and configure Streamlit
-FROM python:3.10
+FROM python:3.10-slim
 
 EXPOSE 8599
 
@@ -24,4 +24,3 @@ COPY . .
 RUN sed -i 's/\(runOnSave =\).*/\1 false/' .streamlit/config.toml
 
 CMD ["python","-m","streamlit", "run", "app.py"]
-
