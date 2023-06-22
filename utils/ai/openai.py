@@ -36,7 +36,11 @@ def upsert(data) -> Pinecone:
     # to get more information, you can look at this page
     # https://python.langchain.com/docs/modules/data_connection/vectorstores/integrations/pinecone
 
-    vectorstore = Pinecone.from_documents(data, embedding=embeddings, index_name=INDEX_NAME)
+    vectorstore = pinecone_db.upsert(
+        data,
+        embedding=embeddings,
+        index_name=INDEX_NAME,
+    )
     return vectorstore
 
 
