@@ -18,7 +18,7 @@ run:
 
 clean:
 	@echo "cleaning"
-	@rm -rf __pycache__
+	@find . -type d -name '.pytest_cache' -exec rm -rf {} +
 
 
 .PHONY: run install clean
