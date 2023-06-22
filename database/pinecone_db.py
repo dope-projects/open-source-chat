@@ -10,22 +10,9 @@ from langchain.vectorstores import Pinecone
 from constants import PINECONE_API_KEY, PINECONE_API_ENV, INDEX_NAME
 
 
-# from functools import cache
-
-
 # @cache
 def index_list() -> List[str]:
     return pinecone.list_indexes()
-
-
-def _setup() -> None:
-    print('Init pinecone database')
-    pinecone.init(
-        api_key=PINECONE_API_KEY,
-        environment=PINECONE_API_ENV,
-    )
-
-    ic(f"pinecone-setup:{index_list()}")
 
 
 def create_index(index_name: str = INDEX_NAME, dimension: int = 1536, metric: str = "euclidean"):
@@ -40,9 +27,6 @@ def create_index(index_name: str = INDEX_NAME, dimension: int = 1536, metric: st
 
 def insert(data: List[Document], embeddings: OpenAIEmbeddings, index=INDEX_NAME) -> Pinecone:
     return Pinecone.from_documents(data, embedding=embeddings, index_name=index)
-
-
-_setup()
 
 # class PineconeDB:
 #     __slots__ = []  # Perf: debug
