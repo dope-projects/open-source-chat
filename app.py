@@ -13,7 +13,7 @@ from langchain.chains import ConversationalRetrievalChain
 from langchain.chat_models import ChatOpenAI
 
 from constants import OPENAI_API_KEY, INDEX_NAME
-from views.htmlTemplates import css
+from views import css
 from utils.inputs.pdf import parse_pdfs
 
 from icecream import ic
@@ -38,8 +38,6 @@ def get_text_chunk(text):
 def get_vectorstore_openAI(data):
     # default model is:text-embedding-ada-002
     embeddings = OpenAIEmbeddings()
-
-
 
     #   will not to use vector in memory today.
     #    vectorstore = FAISS.from_texts(texts=text_chunks, embedding=embeddings)
