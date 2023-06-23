@@ -3,7 +3,7 @@ from pathlib import Path
 import tempfile
 import pytest
 
-from html import extract
+from .html import extract
 
 
 def test_extract_string_input(benchmark):
