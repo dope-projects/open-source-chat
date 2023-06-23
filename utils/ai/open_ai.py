@@ -36,10 +36,9 @@ def upsert(data) -> Pinecone:
     # to get more information, you can look at this page
     # https://python.langchain.com/docs/modules/data_connection/vectorstores/integrations/pinecone
 
-    vectorstore = pinecone_db.upsert(
+    vectorstore = pinecone_db.insert(
         data,
-        embedding=embeddings,
-        index_name=INDEX_NAME,
+        embeddings,
     )
     return vectorstore
 
@@ -47,7 +46,8 @@ def upsert(data) -> Pinecone:
 def create_or_get_conversation_chain(vectorstore) -> BaseConversationalRetrievalChain:
     llm = ChatOpenAI()
     memory = ConversationBufferMemory(
-        memory_key='chat_history', return_messages=True)
+        memory_key='chat_history', return_messages=True,
+    )
     conversation_chain = ConversationalRetrievalChain.from_llm(
         llm=llm,
         retriever=vectorstore.as_retriever(),
