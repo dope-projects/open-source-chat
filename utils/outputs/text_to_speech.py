@@ -1,11 +1,12 @@
-import dataclasses
 import io
 from pathlib import Path
 
 from gtts import gTTS
 
+from dataclasses import dataclass
 
-@dataclasses.dataclass
+
+@dataclass(slots=True)
 class TextToSpeechConfig:
     text: str
     output: str | io.BytesIO | Path
