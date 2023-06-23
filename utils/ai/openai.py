@@ -43,7 +43,7 @@ def upsert(data) -> Pinecone:
     return vectorstore
 
 
-def get_conversation_chain(vectorstore) -> BaseConversationalRetrievalChain:
+def create_or_get_conversation_chain(vectorstore) -> BaseConversationalRetrievalChain:
     llm = ChatOpenAI()
     memory = ConversationBufferMemory(memory_key='chat_history', return_messages=True)
     conversation_chain = ConversationalRetrievalChain.from_llm(
