@@ -20,7 +20,6 @@ env:
   mode: testing
 
 jobs:
-  environment: default
   build:
     strategy:
       fail-fast: false
@@ -30,6 +29,7 @@ jobs:
         python-version: [ "3.10", "3.11" ]
 
     runs-on: ${{matrix.os}}
+    environment: default
 
     steps:
       - uses: actions/checkout@v3
