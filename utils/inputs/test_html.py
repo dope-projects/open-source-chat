@@ -23,7 +23,7 @@ def test_extract_path_input(benchmark):
     with tempfile.NamedTemporaryFile('w', delete=False) as temp_file:
         temp_file.write(html_string)
         temp_file_path = Path(temp_file.name)
-    result = benchmark.pedantic(extract, setup=setup, rounds=100)
+    result = benchmark.pedantic(extract, setup=setup, rounds=1000)
     temp_file_path.unlink()
     assert result == html_string
 
