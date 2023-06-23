@@ -4,7 +4,7 @@ from functools import cache
 from io import StringIO
 from pathlib import Path
 
-from typing.io import IO
+from typing import IO
 
 
 @cache
