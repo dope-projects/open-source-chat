@@ -13,5 +13,5 @@ def handle_text_2_speech(text: str | Path | IO):
         return
 
     config = TextToSpeechConfig(text=text, output=io.BytesIO())
-    output_file = text_to_speech(config)
-    st.audio(output_file, format='audio/mp3')
+    text_to_speech(config)
+    st.audio(config.output, config.format)

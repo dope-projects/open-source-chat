@@ -24,5 +24,6 @@ clean:
 	@echo "cleaning"
 	@find . -type d -name '.pytest_cache' -exec rm -rf {} +
 	@find . -type d -name '.benchmarks' -exec rm -rf {} +
+	@find . -type f -name '<_io.BytesIO object at*' -exec rm -f {} +
 
 .PHONY: run install clean setup test
