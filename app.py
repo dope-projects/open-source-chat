@@ -21,7 +21,7 @@ def main():
     home()
 
     embeddings = OpenAIEmbeddings()
-    INDEX_NAME = 'pdfchat'
+    INDEX_NAME = 'langchaintest'
     print(f'{INDEX_NAME}')
     vectorstore = Pinecone.from_existing_index(index_name=INDEX_NAME, embedding=embeddings)
     # create conversation chain
