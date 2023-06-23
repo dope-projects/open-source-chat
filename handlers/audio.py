@@ -13,8 +13,8 @@ def autoplay_audio(audio: str | io.BytesIO):
         with open(audio, "rb") as f:
             data = f.read()
     elif isinstance(audio, io.BytesIO):
-        data = audio.getvalue()
         audio.seek(0)
+        data = audio.getvalue()
     else:
         raise ValueError("Invalid audio input type.")
 
