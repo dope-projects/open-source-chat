@@ -1,14 +1,14 @@
 import streamlit as st
-from langchain.embeddings import OpenAIEmbeddings
-# from langchain.vectorstores import FAISS
-from langchain.vectorstores import Pinecone
 
 from config import open_ai, pinecone
 
-from config.constants import INDEX_NAME, PRODUCTION, MODE
-from utils.ai.openai import create_or_get_conversation_chain
+from config.constants import INDEX_NAME, MODE, PRODUCTION
 
 from icecream import ic
+from langchain.embeddings import OpenAIEmbeddings
+# from langchain.vectorstores import FAISS
+from langchain.vectorstores import Pinecone
+from utils.ai.openai import create_or_get_conversation_chain
 
 from views.home import home
 
@@ -18,9 +18,13 @@ def main():
     pinecone.setup()
 
     embeddings = OpenAIEmbeddings()
-    vectorstore = Pinecone.from_existing_index(index_name=INDEX_NAME, embedding=embeddings)
+    vectorstore = Pinecone.from_existing_index(
+        index_name=INDEX_NAME, embedding=embeddings,
+    )
 
-    st.session_state.conversation = create_or_get_conversation_chain(vectorstore)
+    st.session_state.conversation = create_or_get_conversation_chain(
+        vectorstore,
+    )
 
     home()
 
