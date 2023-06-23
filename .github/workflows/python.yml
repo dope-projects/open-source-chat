@@ -14,7 +14,7 @@ concurrency:
 
 env:
   PINECONE_API_KEY: ${{ secrets.PINECONE_API_KEY }}
-  PINECONE_API_ENV: ${{ PINECONE_API_ENV }}
+  PINECONE_API_ENV: ${{ PINECONE_API_ENV }} || "asia-southeast1-gcp-free"
   OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
   mode: testing
 
