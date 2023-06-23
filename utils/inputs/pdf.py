@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from PyPDF2 import PdfReader
+from pypdf import PdfReader
 from typing import IO
 
 
