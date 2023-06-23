@@ -17,6 +17,7 @@ env:
   PINECONE_API_ENV: ${{ secrets.PINECONE_API_ENV }}
   OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
   mode: testing
+
 jobs:
   build:
     strategy:
