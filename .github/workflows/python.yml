@@ -16,7 +16,7 @@ env:
   PINECONE_API_KEY: ${{ secrets.PINECONE_API_KEY }}
   PINECONE_API_ENV: ${{ vars.PINECONE_API_ENV }}
   OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-  INDEX_NAME: ${{vars.INDEX_NAME}} || "chatgpt"
+  INDEX_NAME: ${{vars.INDEX_NAME || "chatgpt" }}
   mode: testing
 
 jobs:
