@@ -18,7 +18,7 @@ def setup_log() -> [logging.Logger]:
 
     ic.configureOutput(prefix=_prefix_time, outputFunction=_info, includeContext=False)
 
-    log_config.fileConfig(fname='conf/log.conf', disable_existing_loggers=True)
+    log_config.fileConfig(fname='config/log_config.ini', disable_existing_loggers=True)
     alog = logging.getLogger('app')
     return alog
 

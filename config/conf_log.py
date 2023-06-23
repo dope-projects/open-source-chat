@@ -1,7 +1,7 @@
 import logging
 import logging.config as log_config
 
-# log_config.fileConfig(fname='log.conf', disable_existing_loggers=False)
+# log_config.fileConfig(fname='log_config.ini', disable_existing_loggers=False)
 LOGGING_CONFIG = {
     'version': 1,
     'formatters': {
