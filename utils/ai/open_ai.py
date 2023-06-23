@@ -1,16 +1,16 @@
-import pinecone
+from config.constants import INDEX_NAME
+from database import pinecone_db
 from icecream import ic
 from langchain.chains import ConversationalRetrievalChain
-from langchain.chains.conversational_retrieval.base import BaseConversationalRetrievalChain
+from langchain.chains.conversational_retrieval.base import (
+    BaseConversationalRetrievalChain,
+)
 from langchain.chat_models import ChatOpenAI
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.memory import ConversationBufferMemory
 from langchain.schema import Document
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.vectorstores import Pinecone
-
-from constants import INDEX_NAME
-from database import pinecone_db
 
 
 def get_text_chunk(text):
@@ -44,13 +44,14 @@ def upsert(data) -> Pinecone:
     return vectorstore
 
 
-def get_conversation_chain(vectorstore) -> BaseConversationalRetrievalChain:
+def create_or_get_conversation_chain(vectorstore) -> BaseConversationalRetrievalChain:
     llm = ChatOpenAI()
-    memory = ConversationBufferMemory(memory_key='chat_history', return_messages=True)
+    memory = ConversationBufferMemory(
+        memory_key='chat_history', return_messages=True)
     conversation_chain = ConversationalRetrievalChain.from_llm(
         llm=llm,
         retriever=vectorstore.as_retriever(),
-        memory=memory
+        memory=memory,
     )
-    ic(f"conversation_chain is {conversation_chain}")
+    ic(f'conversation_chain is {conversation_chain}')
     return conversation_chain

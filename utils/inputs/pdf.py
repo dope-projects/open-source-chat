@@ -1,10 +1,12 @@
+from functools import cache
 from pathlib import Path
 
-from PyPDF2 import PdfReader
+from pypdf import PdfReader
 from typing import IO
 
 
-def parse_pdfs(*pdf_docs: str | IO | Path) -> str:
+@cache
+def extract(*pdf_docs: str | IO | Path) -> str:
     text = ""
     for pdf in pdf_docs:
         pdf_reader = PdfReader(pdf)

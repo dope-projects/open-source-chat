@@ -7,10 +7,7 @@ from langchain.embeddings import OpenAIEmbeddings
 from langchain.schema import Document
 from langchain.vectorstores import Pinecone
 
-from constants import PINECONE_API_KEY, PINECONE_API_ENV, INDEX_NAME
-
-
-# from functools import cache
+from config.constants import INDEX_NAME
 
 
 # @cache
@@ -18,31 +15,18 @@ def index_list() -> List[str]:
     return pinecone.list_indexes()
 
 
-def _setup() -> None:
-    print('Init pinecone database')
-    pinecone.init(
-        api_key=PINECONE_API_KEY,
-        environment=PINECONE_API_ENV,
-    )
-
-    ic(f"pinecone-setup:{index_list()}")
-
-
 def create_index(index_name: str = INDEX_NAME, dimension: int = 1536, metric: str = "euclidean"):
     # check before creating
     if index_name not in index_list():
         # index not existed. Create a new index
         pinecone.create_index(name=index_name, dimension=dimension, metric=metric)
-        ic(f"create a new index {index_name}")
+        ic(f"created a new index {index_name}")
     else:
         logging.warning(f"{index_name} index existed. skip creating.")
 
 
 def insert(data: List[Document], embeddings: OpenAIEmbeddings, index=INDEX_NAME) -> Pinecone:
     return Pinecone.from_documents(data, embedding=embeddings, index_name=index)
-
-
-_setup()
 
 # class PineconeDB:
 #     __slots__ = []  # Perf: debug

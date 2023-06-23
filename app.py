@@ -1,34 +1,37 @@
 import streamlit as st
-import openai
+
+from config import open_ai, pinecone
+
+from config.constants import INDEX_NAME, MODE, PRODUCTION
+
+from icecream import ic
 from langchain.embeddings import OpenAIEmbeddings
 # from langchain.vectorstores import FAISS
 from langchain.vectorstores import Pinecone
-
-from constants import OPENAI_API_KEY
-from utils.ai.openai import get_conversation_chain
-
-from icecream import ic
+from utils.ai.open_ai import create_or_get_conversation_chain
 
 from views.home import home
 
 
 def main():
-    openai.api_key = OPENAI_API_KEY
-
-    # Set up pinecone database
-
-    # set up basic page
-    home()
+    open_ai.setup()
+    pinecone.setup()
 
     embeddings = OpenAIEmbeddings()
-    INDEX_NAME = 'langchaintest'
-    print(f'{INDEX_NAME}')
-    vectorstore = Pinecone.from_existing_index(index_name=INDEX_NAME, embedding=embeddings)
-    # create conversation chain
-    st.session_state.conversation = get_conversation_chain(vectorstore)
-    ic('conversation chain created')
+    vectorstore = Pinecone.from_existing_index(
+        index_name=INDEX_NAME, embedding=embeddings,
+    )
+
+    st.session_state.conversation = create_or_get_conversation_chain(
+        vectorstore,
+    )
+
+    home()
 
 
 # to run this application, you need to run "streamlit run app.py"
 if __name__ == '__main__':
+    if MODE == PRODUCTION:
+        ic.disable()
+
     main()
