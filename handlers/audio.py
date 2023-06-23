@@ -1,23 +1,24 @@
 import base64
+import io
 from pathlib import Path
 
 from typing import IO
-import io
+
+import streamlit as st
 
 from utils.outputs.text_to_speech import text_to_speech, TextToSpeechConfig
-import streamlit as st
 
 
 def autoplay_audio(audio: str | io.BytesIO):
     if isinstance(audio, str):
-        with open(audio, "rb") as f:
+        with open(audio, 'rb') as f:
             data = f.read()
     elif isinstance(audio, io.BytesIO):
         audio.seek(0)
         data = audio.getvalue()
     else:
-        raise ValueError("Invalid audio input type.")
-
+        raise ValueError('Invalid audio input type.')
+    # TODO: reading code
     b64 = base64.b64encode(data).decode()
     md = f"""
         <audio controls autoplay="true">
@@ -32,7 +33,7 @@ def autoplay_audio(audio: str | io.BytesIO):
 
 def handle_text_2_speech(text: str | Path | IO):
     if not text:
-        st.error(f"invalid input:{type(text)}")
+        st.error(f'invalid input:{type(text)}')
         return
 
     config = TextToSpeechConfig(text=text, output=io.BytesIO())
