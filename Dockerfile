@@ -12,8 +12,7 @@ RUN pip install -r requirements.txt
 # Stage 2: Copy application code and configure Streamlit
 FROM python:3.10-slim
 
-ARG mode=production
-ENV mode=$mode
+ENV mode=production
 
 EXPOSE 8599
 
