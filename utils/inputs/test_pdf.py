@@ -2,7 +2,7 @@ import os
 
 import requests
 import pytest
-from pdf import extract
+from .pdf import extract
 
 url = "https://www.golang-book.com/public/pdf/gobook.pdf"
 filename = os.path.join("testdata", "gobook.pdf")
