@@ -19,14 +19,14 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-
     strategy:
       fail-fast: false
       max-parallel: 2
       matrix:
+        os: [ ubuntu-latest ]
         python-version: [ "3.10", "3.11" ]
 
+    runs-on: ${{matrix.os}}
 
     steps:
       - uses: actions/checkout@v3
@@ -57,13 +57,13 @@ jobs:
         run: |
           make test
 
-    docker:
-      runs-on: ubuntu-latest
+  docker:
+    runs-on: ubuntu-latest
 
-      steps:
-        - name: Checkout code
-          uses: actions/checkout@v3
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-        - name: Build Dockerfile
-          run: |
-            docker build -t os-chat .
+      - name: Build Dockerfile
+        run: |
+          docker build -t os-chat .
