@@ -13,11 +13,17 @@ def test_extract_string_input(benchmark):
 
 
 def test_extract_path_input(benchmark):
+    def setup():
+        nonlocal temp_file_path
+        args = (temp_file_path,)
+        kwargs = {}
+        return args, kwargs
+
     html_string = '<html><head><title>Test Title</title></head><body><p>Test paragraph.</p></body></html>'
     with tempfile.NamedTemporaryFile('w', delete=False) as temp_file:
         temp_file.write(html_string)
         temp_file_path = Path(temp_file.name)
-    result = benchmark(extract, html_src=temp_file_path)
+    result = benchmark.pedantic(extract, setup=setup, rounds=100)
     temp_file_path.unlink()
     assert result == html_string
 
