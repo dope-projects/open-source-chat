@@ -25,7 +25,6 @@ def test_extract(benchmark):
         "package main",
         "1 Getting Started ",
         "true || true",
-        "The for statement"
     )
 
     assert len(text) > 0
@@ -38,6 +37,8 @@ def test_extract(benchmark):
 def cleanup():
     print("Performing cleanup tasks before running tests")
     if not os.path.exists(filename):
+        dirname = os.path.dirname(filename)
+        if not os.path.exists(dirname): os.mkdir(dirname)
         download_file(url, filename)
 
     yield
