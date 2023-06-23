@@ -12,14 +12,19 @@ RUN pip install -r requirements.txt
 # Stage 2: Copy application code and configure Streamlit
 FROM python:3.10-slim
 
+ARG mode=production
+ENV mode=$mode
+
 EXPOSE 8599
 
 WORKDIR /app
 
 COPY --from=builder /usr/local/lib/python3.10/site-packages /usr/local/lib/python3.10/site-packages
-
 COPY --from=builder /app/venv /app/venv
+
 RUN . venv/bin/activate
+
+RUN if [ "$mode" = "testing" ]; then pip install pytest; fi
 
 COPY . .
 
