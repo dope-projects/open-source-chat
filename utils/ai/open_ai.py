@@ -1,4 +1,4 @@
-from config.constants import INDEX_NAME
+from config.constants import INDEX_NAME, OPENAI_CHAT_MODEL, OPENAI_EMBEDDINGS_LLM
 from database import pinecone_db
 from icecream import ic
 from langchain.chains import ConversationalRetrievalChain
@@ -27,8 +27,7 @@ def get_text_chunk(text):
 
 
 def upsert(data) -> Pinecone:
-    # default model is:text-embedding-ada-002
-    embeddings = OpenAIEmbeddings()
+    embeddings = OpenAIEmbeddings(model=OPENAI_EMBEDDINGS_LLM)
 
     #   will not to use vector in memory today.
     #    vectorstore = FAISS.from_texts(texts=text_chunks, embedding=embeddings)
@@ -44,7 +43,7 @@ def upsert(data) -> Pinecone:
 
 
 def create_or_get_conversation_chain(vectorstore) -> BaseConversationalRetrievalChain:
-    llm = ChatOpenAI()
+    llm = ChatOpenAI(model=OPENAI_CHAT_MODEL)
     memory = ConversationBufferMemory(
         memory_key='chat_history', return_messages=True,
     )
