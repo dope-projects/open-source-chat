@@ -10,7 +10,7 @@ config = TextToSpeechConfig(text='hello', output="testcache/output.mp3")
 def test_t2s():
     text_to_speech(config)
 
-    assert os.path.exists(config.output) == True
+    assert os.path.exists(config.output) is True
 
 
 @pytest.fixture(scope='session', autouse=True)
