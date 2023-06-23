@@ -16,8 +16,8 @@ def download_file(url: str, destination: str) -> None:
             file.write(chunk)
 
 
-def test_extract():
-    text = extract(filename)
+def test_extract(benchmark):
+    text = benchmark(extract, filename)
     testcases = (
         "Go",
         "An Introduction to Programming in Go",

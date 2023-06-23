@@ -8,7 +8,7 @@ from html import extract
 
 def test_extract_string_input(benchmark):
     html_string = '<html><head><title>Test Title</title></head><body><p>Test paragraph.</p></body></html>'
-    result = benchmark(extract(html_string))
+    result = benchmark(extract, html_string)
     assert result == html_string
 
 
@@ -32,4 +32,4 @@ def test_extract_io_input(benchmark):
 def test_extract_invalid_input(benchmark):
     invalid_input = 12345
     with pytest.raises(ValueError, match="Invalid input type. Expected str, IO, or Path."):
-        benchmark(extract(invalid_input))
+        benchmark(extract, html_src=invalid_input)
