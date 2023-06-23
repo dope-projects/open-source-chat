@@ -19,6 +19,7 @@ env:
   mode: testing
 
 jobs:
+  environment: default
   build:
     strategy:
       fail-fast: false
