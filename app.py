@@ -19,9 +19,8 @@ def main():
 
     embeddings = OpenAIEmbeddings()
     vectorstore = Pinecone.from_existing_index(index_name=INDEX_NAME, embedding=embeddings)
-    # create conversation chain
+
     st.session_state.conversation = create_or_get_conversation_chain(vectorstore)
-    ic('conversation chain created')
 
     home()
 
