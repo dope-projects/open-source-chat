@@ -8,7 +8,7 @@ from icecream import ic
 from langchain.embeddings import OpenAIEmbeddings
 # from langchain.vectorstores import FAISS
 from langchain.vectorstores import Pinecone
-from utils.ai.openai import create_or_get_conversation_chain
+from utils.ai.open_ai import create_or_get_conversation_chain
 
 from views.home import home
 

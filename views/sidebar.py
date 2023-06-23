@@ -1,7 +1,7 @@
 import streamlit as st
 from icecream import ic
 
-from utils.ai.openai import get_text_chunk, upsert
+from utils.ai.open_ai import get_text_chunk, upsert
 from utils.inputs.pdf import extract
 
 
