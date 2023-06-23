@@ -23,5 +23,6 @@ test:
 clean:
 	@echo "cleaning"
 	@find . -type d -name '.pytest_cache' -exec rm -rf {} +
+	@find . -type d -name '.benchmarks' -exec rm -rf {} +
 
 .PHONY: run install clean setup test
