@@ -6,7 +6,6 @@ from langchain.schema import Document
 from pypdf import PdfReader
 
 
-@cache
 def extract(pdf_docs: str | IO | Path | List[Document]) -> str:
     if isinstance(pdf_docs, str):
         pdf_docs = [pdf_docs]
