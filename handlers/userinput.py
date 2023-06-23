@@ -11,9 +11,9 @@ def handle_userinput(user_question):
     chat_history = st.session_state.chat_history
 
     for i, message in enumerate(chat_history):
-        if i % 2 == 0:
+        if i % 2 == 0:  # User's message
             st.write(tpl_user.replace("{{MSG}}", message.content), unsafe_allow_html=True)
-        else:
+        else:  # AI message
             st.write(tpl_bot.replace("{{MSG}}", message.content), unsafe_allow_html=True)
 
     if len(chat_history) > 0:
