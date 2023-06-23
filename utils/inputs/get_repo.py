@@ -32,7 +32,3 @@ def get_github_docs(repo_owner, repo_name):
                 yield Document(page_content=f.read(), metadata={"source": github_url})
 
 
-sources = get_github_docs("iterative", "dvc.org")
-
-print(sources)
-

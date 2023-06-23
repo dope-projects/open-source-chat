@@ -16,26 +16,19 @@ from utils.inputs.get_repo import get_github_docs
 
 def get_text_chunk():
     # use text_splitter to split it into documents list
-    text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size=1000,
-        chunk_overlap=0,
-    ).from_language(language= Language.MARKDOWN)
-    sources = get_github_docs()
+    sources = get_github_docs("mertbozkir", "docs-example")
     source_chunks = []
 
     md_splitter = RecursiveCharacterTextSplitter.from_language(
     language=Language.MARKDOWN, chunk_size=1024, chunk_overlap=0)
 
-# splitter = CharacterTextSplitter(separator=" ", chunk_size=1024, chunk_overlap=0)
-
     for source in sources:
         for chunk in md_splitter.split_text(source.page_content):
-            print(chunk)
             source_chunks.append(Document(page_content=chunk, metadata=source.metadata))
+
+    print(f"source_chunks length is {len(source_chunks)} and type of each source_chunks is {type(source_chunks[0])}")
     
-    # (variable) docs: List[Document]
-    docs = [Document(page_content=text) for text in source_chunks]
-    return docs
+    return source_chunks
 
 
 def upsert(data) -> Pinecone:
@@ -52,9 +45,6 @@ def upsert(data) -> Pinecone:
         embeddings,
     )
     return vectorstore
-
-
-
 
 
 def create_or_get_conversation_chain(vectorstore) -> BaseConversationalRetrievalChain:

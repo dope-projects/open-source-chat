@@ -18,8 +18,8 @@ def home():
     if 'chat_history' not in st.session_state:
         st.session_state.chat_history = None
 
-    st.header('Chat based on PDF you provided :books:')
-    user_question = st.text_input('Ask a question about your documents:')
+    st.header('Chat based on opensource website :globe_with_meridians:')
+    user_question = st.text_input('Ask a question about your dvc:')
 
     if user_question:
         handle_userinput(user_question)
