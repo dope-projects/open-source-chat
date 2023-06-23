@@ -23,7 +23,7 @@ COPY --from=builder /app/venv /app/venv
 
 RUN . venv/bin/activate
 
-RUN if [ "$mode" = "testing" ]; then pip install pytest; fi
+RUN if [ "$mode" = "testing" ]; then pip install -r requirements-test.txt; fi
 
 COPY . .
 
