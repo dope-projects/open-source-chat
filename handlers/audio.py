@@ -9,7 +9,7 @@ import streamlit as st
 
 def handle_text_2_speech(text: str | Path | IO):
     if not text:
-        st.error("invalid input")
+        st.error(f"invalid input:{type(text)}")
         return
 
     config = TextToSpeechConfig(text=text, output=io.BytesIO())
