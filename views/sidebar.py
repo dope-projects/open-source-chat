@@ -3,29 +3,33 @@ from icecream import ic
 
 from utils.ai.open_ai import get_text_chunk, upsert
 from utils.inputs.pdf import extract
+from database.pinecone_db import need_text_embedding
 
 
-def sidebar_spinner(pdf_docs):
+def sidebar_spinner():
     with st.spinner('Processing'):
-        # get pdf text
-        data = extract(pdf_docs)
-        ic('pdfs have been reading into data')
+        
+        if need_text_embedding() == True:
+            # index not created and need run text embedding
+            # Use loader and data splitter to make a document list
+            st.write("Index didn't found. Will process Embeding for you.")
+            doc = get_text_chunk()
+            ic(f'text_chunks are generated and the total chucks are {len(doc)}')
 
-        # Use loader and data splitter to make a document list
-        doc = get_text_chunk(data)
-        ic(f'text_chunks are generated and the total chucks are {len(doc)}')
-
-        # Upsert data to the VectorStore
-        upsert(doc)
+            # Upsert data to the VectorStore
+            print('Doc is ready for upsert!')
+            upsert(doc)
+            st.write("Text embedding finished successfully. You can ask question now.")
+        else:
+            st.write('Index existed in Pinecone database. Skip text embedding. You can ask question directly.')
 
 
 def sidebar():
     with st.sidebar:
-        st.subheader('Your PDF documents')
-        pdf_docs = st.file_uploader(
-            "Upload your pdfs here and click on 'Proces'",
-            accept_multiple_files=True,
-        )
+        st.subheader('Process the docs from github')
+        st.write('For brand new vector database, press Process to do text embedding first.:tada:')
+        st.write('For now we only support :globe_with_meridians:https://dvc.org/. More sites will coming soon...')
+
         # if the button is pressed
-        if st.button('Process'):
-            sidebar_spinner(pdf_docs)
+        if st.button('Text Embedding'):
+            sidebar_spinner()
