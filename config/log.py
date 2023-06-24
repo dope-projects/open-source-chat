@@ -1,26 +1,28 @@
 import logging
-
-from icecream import ic, install
-import logging
 import logging.config as log_config
-
 import time
+
+from icecream import ic
 
 
 def _prefix_time():
     return f"{time.strftime('%X')}"
 
 
-def setup_log() -> [logging.Logger]:
-    def _info(s):
-        print(s)
-        # alog.info(f'{s}')
+def setup_log():
+    log_config.fileConfig(
+        fname='config/log_config.ini',
+        disable_existing_loggers=True,
+    )
 
-    ic.configureOutput(prefix=_prefix_time, outputFunction=_info, includeContext=False)
+    _alog = logging.getLogger('app')
 
-    log_config.fileConfig(fname='config/log_config.ini', disable_existing_loggers=True)
-    alog = logging.getLogger('app')
-    return alog
+    def _info(s): return _alog.info(s)
+
+    ic.configureOutput(
+        prefix=_prefix_time,
+        outputFunction=_info, includeContext=True,
+    )
 
 
 """
