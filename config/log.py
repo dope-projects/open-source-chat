@@ -6,7 +6,7 @@ from icecream import ic
 
 
 def _prefix_time():
-    return f"{time.strftime('%X')}"
+    return f"info | {time.strftime('%X')} | "
 
 
 def setup_log():

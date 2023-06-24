@@ -2,9 +2,9 @@ import logging
 from dataclasses import dataclass
 from logging import *
 from pathlib import Path
-from typing import List
 
 import pytest
+from icecream import ic
 
 from .log import setup_log
 
@@ -39,18 +39,13 @@ level_map_files = {
 }
 
 
-def assert_tokens_in_log(log_file: str | Path, tokens: str | List[str]):
-    if isinstance(tokens, str):
-        tokens = [tokens]
-
-    with open(f'logs/{log_file}', 'w+') as f1:
+def assert_tokens_in_log(log_file: str | Path, *tokens: str):
+    with open(f'logs/{log_file}', 'r+') as f1:
         lines = f1.readlines()
-        assert len(lines) > 0
+        assert len(lines) != 0
         last_line = lines[-1].strip()
         for token in tokens:
             assert token in last_line
-        f1.writelines(lines[:-1])
-        # f1.truncate()
 
 
 @pytest.mark.run(order=1)
@@ -60,14 +55,14 @@ def test_root():
     logging.info(testcase)
     assert_tokens_in_log(rootLog, testcase)
 
-# @pytest.mark.run(order=2)
-# def test_app():
-#     testcase = test_app.__name__
-#
-#     ic(testcase)
-#
-#     assert_tokens_in_log(appLog, testcase)
-#     assert_tokens_in_log(rootLog, testcase)
+
+@pytest.mark.run(order=2)
+def test_app():
+    testcase = test_app.__name__
+
+    ic(testcase)
+
+    assert_tokens_in_log(appLog, testcase)
 
 # @pytest.mark.run(order=2)
 # @pytest.mark.parametrize("testcase", test_cases)
