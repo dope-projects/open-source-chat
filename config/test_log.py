@@ -12,6 +12,9 @@ setup_log()
 
 alog = getLogger('app')
 
+rootLog = 'root.log'
+appLog = 'app.log'
+
 
 @dataclass(slots=True)
 class Testcase:
@@ -48,10 +51,6 @@ def assert_tokens_in_log(log_file: str | Path, tokens: str | List[str]):
             assert token in last_line
         f1.writelines(lines[:-1])
         # f1.truncate()
-
-
-rootLog = 'root.log'
-appLog = 'app.log'
 
 
 @pytest.mark.run(order=1)
