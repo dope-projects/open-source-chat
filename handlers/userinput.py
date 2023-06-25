@@ -24,5 +24,5 @@ def handle_userinput(user_question):
                 ), unsafe_allow_html=True,
             )
 
-    if len(chat_history) > 0:
-        handle_text_2_speech(chat_history[-1].content)
+#    if len(chat_history) > 0:
+#        handle_text_2_speech(chat_history[-1].content)
