@@ -54,11 +54,12 @@ def upsert(data) -> Pinecone:
     return vectorstore
 
 
-def create_or_get_conversation_chain(vectorstore) -> BaseConversationalRetrievalChain:
-    template = """/
-        Can you give us the results as markdown code, in a funny way?
+def create_or_get_conversation_chain(vectorstore):
+    template = """
+        Return results as markdown code?
     """
-    llm = ChatOpenAI(model=OPENAI_CHAT_MODEL)
+    #llm = ChatOpenAI(model=OPENAI_CHAT_MODEL)
+    llm = ChatOpenAI()
     memory = ConversationBufferMemory(
         memory_key='chat_history', return_messages=True,
     )
@@ -70,5 +71,5 @@ def create_or_get_conversation_chain(vectorstore) -> BaseConversationalRetrieval
         memory=memory,
         condense_question_prompt=prompt_template,
     )
-    ic(f'conversation_chain is {conversation_chain}')
+    # ic(f'conversation_chain is {conversation_chain}')
     return conversation_chain

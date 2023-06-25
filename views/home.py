@@ -16,7 +16,7 @@ def home():
     if 'conversation' not in st.session_state:
         st.session_state.conversation = None
     if 'chat_history' not in st.session_state:
-        st.session_state.chat_history = None
+        st.session_state.chat_history = []
 
     st.header('Chat based on open-source documentation! :globe_with_meridians:')
     user_question = st.text_input('Ask a question about your dvc pipeline:')
