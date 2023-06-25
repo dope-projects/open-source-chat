@@ -2,12 +2,12 @@ import logging
 from typing import List
 
 import pinecone
-
-from config.constants import INDEX_NAME
 from icecream import ic
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.schema import Document
 from langchain.vectorstores import Pinecone
+
+from config.constants import INDEX_NAME
 
 
 def index_list() -> List[str]:
@@ -29,6 +29,7 @@ def create_index(index_name: str = INDEX_NAME, dimension: int = 1536, metric: st
 def insert(data: List[Document], embeddings: OpenAIEmbeddings, index=INDEX_NAME) -> Pinecone:
     return Pinecone.from_documents(data, embedding=embeddings, index_name=index)
 
+
 def need_text_embedding():
     need_text_embedding = False
     index = pinecone.Index(INDEX_NAME)
@@ -41,7 +42,6 @@ def need_text_embedding():
     vector_count = index_stats_response.total_vector_count
     print(f'total_vector_count is {vector_count}')
 
-    if vector_count == 0 :
+    if vector_count == 0:
         need_text_embedding = True
     return need_text_embedding
-

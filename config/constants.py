@@ -1,5 +1,4 @@
 import os
-
 from os import environ
 from typing import Final
 

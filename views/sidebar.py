@@ -1,14 +1,13 @@
 import streamlit as st
 from icecream import ic
 
-from utils.ai.open_ai import get_text_chunk, upsert
-from utils.inputs.pdf import extract
 from database.pinecone_db import need_text_embedding
+from utils.ai.open_ai import get_text_chunk, upsert
 
 
 def sidebar_spinner():
     with st.spinner('Processing'):
-        
+
         if need_text_embedding() == True:
             # index not created and need run text embedding
             # Use loader and data splitter to make a document list
@@ -19,16 +18,24 @@ def sidebar_spinner():
             # Upsert data to the VectorStore
             print('Doc is ready for upsert!')
             upsert(doc)
-            st.write("Text embedding finished successfully. You can ask question now.")
+            st.write(
+                'Text embedding finished successfully. You can ask question now.',
+            )
         else:
-            st.write('Index existed in Pinecone database. Skip text embedding. You can ask question directly.')
+            st.write(
+                'Index existed in Pinecone database. Skip text embedding. You can ask question directly.',
+            )
 
 
 def sidebar():
     with st.sidebar:
         st.subheader('Process the docs from github')
-        st.write('For brand new vector database, press Process to do text embedding first.:tada:')
-        st.write('For now we only support :globe_with_meridians:https://dvc.org/. More sites will coming soon...')
+        st.write(
+            'For brand new vector database, press Process to do text embedding first.:tada:',
+        )
+        st.write(
+            'For now we only support :globe_with_meridians:https://dvc.org/. More sites will coming soon...',
+        )
 
         # if the button is pressed
         if st.button('Text Embedding'):

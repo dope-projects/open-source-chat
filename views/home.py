@@ -1,7 +1,7 @@
-import public
 import streamlit as st
-from handlers.userinput import handle_userinput
 
+import public
+from handlers.userinput import handle_userinput
 from .sidebar import sidebar
 
 
